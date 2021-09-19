@@ -1,0 +1,401 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>                                         //this is needed to be able to call use the string function.
+#include <conio.h>                                          //included this header file to somehow remove the delay for the I/O from the user
+#define MAXCHAR 10240                                       //this can be changed if the input text is larger than 1024 characters
+#define HIDDEN_KEY 14                                       //this can be changed without altering the code itself.
+
+
+int main(void) 
+{                                                           //Choosing the desired option of Cypher.
+    
+    printf ("Choose one of the following cypher options: \n");
+    printf ("a)A Encryption Rail-Fence\n");
+    printf ("b)A Encryption 2-level Rail-Fence\n");
+    printf ("c)A Decryption 2-level Rail-Fence\n");
+    printf ("d)A Decryption Substitution\n");
+    printf ("e) cipher.txt Substitution\n");
+    printf ("f)  Exit\n");
+    char message[1000];                                         // this may be any abitrary number depending on how many characters that is wished to be used within the code encryption
+    char option;
+    int i;                                            
+    char character[MAXCHAR];                                    // MAXCHAR has been defined previously as a value of 10240 in case a large amount of characters is used
+    scanf ("%c", &option);
+
+    if(option == 'a')
+    {                                     
+        int key;                                               // amount of rails that would be used to encrypt the message. 
+        printf("\nEnter Message: ");
+        scanf("\n%[^\n]s",message);                            // this allows you to input a number of string characters while including whitespace.There are many ways of storing a string this happens to be a tidy way.
+        int length = strlen(message);                          // this stores amount of characters in a string and assigns a int value to length..VERY IMPORTANT LATER
+        printf("\nEnter Key(Number of rails): ");              // this is the amount of rails that will be in the code
+        scanf("%d", &key);                                     // the amount of rails that we want in this case it may just be one
+        char railMatrix[key][length];                          // char array considering the key=rails and the length of the string.using strlen is already stored within length.
+        printf("Original Message: %s\n", message);             // prints the original message not required buttt.. its nice to have, to compare to the encrypoted version   
+        rail1Encrypt(message, key);                            // calls the function for the rail encryption
+    }
+        
+    else if (option == 'b')
+    {
+        int key;                                               // cypher encryption
+        printf("\nEnter Message: ");                           // the amount of characters that is within a char string, the amount of characters can be altered 1000 is a safe amount.
+        scanf("\n%[^\n]s",message);                            // there are many ways of storing a string this happens to be a tidy way.
+        int length = strlen(message);                          // this stores amount of characters in a string and assigns a int value to len
+        printf("\nEnter Key(Number of rails): ");              // this is the amount of rails that will be in the code
+        scanf("%d", &key);                                     // this stores amount of characters in a string and assigns it to len..VERY IMPORTANT LATER
+        char railMatrix[key][length];                          // char array considering the key=rails and the length of the string.using strlen is already stored within length.
+        printf("Original Message: %s\n", message);             // prints the original message not required buttt.. its nice to have, to compare to the encrypoted version
+        rail2fencencrypt(message, key);                        // calls the function for the rail encryption
+    }
+    else if (option == 'c')
+    {
+        int key;                                               // cypher encryption
+        printf("\nEnter Message: ");                           // the amount of characters that is within a char string, the amount of characters can be altered 1000 is a safe amount.
+        scanf("\n%[^\n]s",message);                            // there are many ways of storing a string this happens to be a tidy way.
+        int length = strlen(message);                          // this stores amount of characters in a string and assigns a int value to length
+        printf("\nEnter Key(Number of rails): ");              // this is the amount of rails that will be in the code
+        scanf("%d", &key);                                     // this stores amount of characters in a string and assigns it to len..VERY IMPORTANT LATER
+        char railMatrix[key][length];                          // char array considering the key=rails and the length of the string.using strlen is already stored within length.      
+        printf("Original Message: %s\n", message);             // prints the original message not required buttt.. its nice to have, to compare to the encrypoted version
+        rail2decrypt(message, key);                            // calls the function for the rail encryption
+    }
+    else if (option == 'd') 
+    {
+        //the substitution cypher: to print this on execution however the one to print the substitution for cipher.txt is below in commenting
+        //abcdefghijklmnopqrstuvwxyz
+        //qazxswedcvfrtgbnhyujmkilop
+
+        printf ("Type in text to be decyphered: \n");
+        scanf("\n%[^\n]s",character);
+        i = 0;
+
+        while (i < MAXCHAR) 
+        {
+            if (character [i] == 'C' || character [i] == 'c') {         // The characters that are being substituted were left in caps. this wasnt specified to be small or large caps.
+                character [i] = 'Z';
+            } else if (character [i] == 'W' || character [i] == 'w') {
+                character [i] = 'I';
+            } else if (character [i] == 'M' || character [i] == 'm') {
+                character [i] = 'T';
+            } else if (character [i] == 'F' || character [i] == 'f') {
+                character [i] = 'W';
+            } else if (character [i] == 'J' || character [i] == 'j') {
+                character [i] = 'V';
+            } else if (character [i] == 'O' || character [i] == 'o') {
+                character [i] = 'B';
+            } else if (character [i] == 'R' || character [i] == 'r') {
+                character [i] = 'Y';
+            } else if (character [i] == 'D' || character [i] == 'd') {
+                character [i] = 'X';
+            } else if (character [i] == 'B' || character [i] == 'b') {
+                character [i] =  'A';
+            } else if (character [i] == 'A' || character [i] == 'a') {
+                character [i] =  'Q';
+            } else if (character [i] == 'N' || character [i] == 'n') {
+                character [i] =  'G';
+            } else if (character [i] == 'K' || character [i] == 'k') {
+                character [i] =  'F';
+            } else if (character [i] == 'G' || character [i] == 'g') {
+                character [i] =  'E';
+            } else if (character [i] == 'L' || character [i] == 'l') {
+                character [i] =  'R';
+            } else if (character [i] == 'Y' || character [i] == 'y') {
+                character [i] =  'O';
+            } else if (character [i] == 'P' || character [i] == 'p') {
+                character [i] =  'N';
+            } else if (character [i] == 'H' || character [i] == 'h') {
+                character [i] =  'D';
+            } else if (character [i] == 'Z' || character [i] == 'z') {
+                character [i] =  'P';
+            } else if (character [i] == 'V' || character [i] == 'v') {
+                character [i] =  'K';
+            } else if (character [i] == 'E' || character [i] == 'e') {
+                character [i] =  'S';
+            } else if (character [i] == 'X' || character [i] == 'x') {
+                character [i] =  'L';
+            } else if (character [i] == 'T' || character [i] == 't') {
+                character [i] =  'J';
+            } else if (character [i] == 'Q' || character [i] == 'q') {
+                character [i] =  'H';
+            } else if (character [i] == 'U' || character [i] == 'u') {
+                character [i] =  'M';
+            } else if (character [i] == 'I' || character [i] == 'i') {
+                character [i] =  'C';
+            } else if (character [i] == 'S' || character [i] == 's') {
+                character [i] =  'U';
+            }
+            i++;
+        }
+        printf ("The cyphered text is:\n");
+        printf ("%s\n", character);
+        printf ("\n\t------!!That was hard!!-----\t");
+    }
+    else if (option == 'e')
+    {
+        printf ("Type in text to be decyphered: \n");
+        scanf("\n%[^\n]s",character);
+        i = 0;
+
+        while (i < MAXCHAR) 
+        {
+            if (character [i] == 'C' || character [i] == 'c') {         // The characters that are being substituted were left in caps. this wasnt specified to be small or large caps.
+                character [i] = 'I';
+            } else if (character [i] == 'W' || character [i] == 'w') {
+                character [i] = 'F';
+            } else if (character [i] == 'M' || character [i] == 'm') {
+                character [i] = 'U';
+            } else if (character [i] == 'F' || character [i] == 'f') {
+                character [i] = 'W';
+            } else if (character [i] == 'J' || character [i] == 'j') {
+                character [i] = 'T';
+            } else if (character [i] == 'O' || character [i] == 'o') {
+                character [i] = 'Y';
+            } else if (character [i] == 'R' || character [i] == 'r') {
+                character [i] = 'I';
+            } else if (character [i] == 'D' || character [i] == 'd') {
+                character [i] = 'H';
+            } else if (character [i] == 'B' || character [i] == 'b') {
+                character [i] =  'O';
+            } else if (character [i] == 'A' || character [i] == 'a') {
+                character [i] =  'B';
+            } else if (character [i] == 'N' || character [i] == 'n') {
+                character [i] =  'P';
+            } else if (character [i] == 'K' || character [i] == 'k') {
+                character [i] =  'V';
+            } else if (character [i] == 'G' || character [i] == 'g') {
+                character [i] =  'N';
+            } else if (character [i] == 'L' || character [i] == 'l') {
+                character [i] =  '!';
+            } else if (character [i] == 'Y' || character [i] == 'y') {
+                character [i] =  'R';
+            } else if (character [i] == 'P' || character [i] == 'p') {
+                character [i] =  'S';
+            } else if (character [i] == 'H' || character [i] == 'h') {
+                character [i] =  'Q';
+            } else if (character [i] == 'Z' || character [i] == 'z') {
+                character [i] =  'C';
+            } else if (character [i] == 'V' || character [i] == 'v') {
+                character [i] =  '!';
+            } else if (character [i] == 'E' || character [i] == 'e') {
+                character [i] =  'G';
+            } else if (character [i] == 'X' || character [i] == 'x') {
+                character [i] =  'D';
+            } else if (character [i] == 'T' || character [i] == 't') {
+                character [i] =  'M';
+            } else if (character [i] == 'Q' || character [i] == 'q') {
+                character [i] =  'A';
+            } else if (character [i] == 'U' || character [i] == 'u') {
+                character [i] =  'S';
+            } else if (character [i] == 'I' || character [i] == 'i') {
+                character [i] =  'W';
+            } else if (character [i] == 'S' || character [i] == 's') {
+                character [i] =  'E';
+            }
+            i++;
+        }
+        printf ("The cyphered text is:\n");
+        printf ("%s\n", character);
+        printf("----!!Too-Easy!!----\n");
+    }
+    else if(option == 'f')
+    {
+        printf("----Thank you, see you again----\n");
+        exit(0);
+    }
+}
+
+void rail1Encrypt(char message[], int key)                  // encryption matrix. this rail in particular is just a classical rail fence without printing the string into a 2d grid.
+{
+    int  i, j;                                              // number of rails.                                                    
+    int row = 0;                                            // how many characters in the string.
+    int column = 0;                                         //column = string length
+    int k = -1;
+    int length = strlen(message);                           //storing the number of characters in a string.
+    char railMatrix[key][length];
+
+    for (i = 0; i < key; i++)                               // filling the rail matrix to distinguish filled                                                            
+    {                                                       // spaces from blank ones 
+        for (j = 0; j < length; j++)
+        {
+            railMatrix[i][j] = '\n';
+        }
+    }
+    for (i = 0; i < length; i++)                            // check the direction of flow
+    {
+        railMatrix[row][column++] = message[i];             // reverse the direction if we've just                           
+        if(row == 0 || row == key-1)                        // reverse the direction if we've just 
+        {                                                   // filled the top or bottom rail
+            k = k * (-1);                                   // fill the corresponding alphabet 
+        }
+
+        row = row + k;                                      
+    }
+    printf("Encrypted Message: \n");
+
+    for (i = 0; i < key; i++)                               //this is the main matrix for the cypher
+    {
+        for (j = 0; j < length; j++)                    
+        {
+            if(railMatrix[i][j] != '\n')
+            {
+                printf("%c", railMatrix[i][j]);
+            }
+        }
+    }
+}
+// this function has a function to first put the inputed string into a 2d grid.
+// there is code included that i used to check if the 2d grid matrix work.
+// then we have the actual main matrix for the 2d grid.
+// the empty rails could be any character but for visuals railMatrix[i][j] was assigned '.'.
+// there is a block of code that accounts for the inputed string and it enters it into the grid.
+// after the encoding or cyphering has been done then the extracted cyphered text is printed.
+// the main function of the variable check is to check which part of the rail the character is,
+// if it is at the top of the rail then it goes diagonally down unless it goes diagonally up.
+// this was simplified after extensive research however another alternative is to use a boolean,
+// and set flags when the directions need to be changed. e.g. check = !check.
+void rail2fencencrypt(char message[], int key)
+{
+    int row = 0;
+    int check = 0;
+    int col = strlen(message);
+    char railMatrix[key][col];
+    
+    //for testing if the 2d grid works.. it does :)!!
+    /*for (int i = 0; i < key; ++i)
+    {
+        for (int j = 0; j < col; ++j)
+        {
+            printf("%c", railMatrix[i][j]);
+        }
+        printf("\n");
+    }*/
+    
+    //matrix for the 2d grid
+    for (int i = 0; i < key; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            railMatrix[i][j] = '.';
+        }
+    }
+
+    //putting inputed string into a zig zag pattern
+    for (int i = 0; i < col; i++)
+    {
+        if (check == 0)
+        {
+            railMatrix[row][i] = message[i];
+            row++;
+            if (row == key)
+            {
+                check = 1;
+                row--;
+            }
+        }
+        else if (check == 1)
+        {
+            row--;
+            railMatrix[row][i] = message[i];
+            if (row == 0)
+            {
+                check = 0;
+                row = 1;
+            }
+        }
+    }
+    
+    //this prints the resultant string in a zig zag pattern
+    for (int i = 0; i < key; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+             railMatrix[key][col] += railMatrix[i][j];
+            printf("%c", railMatrix[i][j]);
+        }
+        printf("\n");
+    }
+    printf("Encrypted Message: \n");
+    
+    //this prints the resultant encrypted string 
+    for (int i = 0; i < key; i++)                               //this is the main matrix for the cypher
+    {
+        for (int j = 0; j < col; j++)
+        {
+            if(railMatrix[i][j] != '.')
+            {
+                printf("%c", railMatrix[i][j]);
+            }
+        }
+    }
+}
+// this function also starts very similar storing the amount of characters in length
+// creating a matrix using the key which is amount of rails and length being the columns
+// we then need to distinguish where there is a string character anfd where there isnt
+// we place a marker '*' and do this for the whole message.
+// where there is a mark the string character is stored and it moves on till the end of the grid
+// then we read the matrix ina zig-zag manner to get the decripted text. which is then printed as a normal string
+void rail2decrypt(char demessage[], int key)                //decryption matrix
+{                                                           // number of rails                                                    
+    int i, j;
+    int row = 0;                                            // how many characters in the string;
+    int column = 0;
+    int m = 0;
+    int k = -1;
+    int length = strlen(demessage);                         //storing the number of characters in a string
+    char railMatrix[key][length];                           //storing the numbers in a 2d array to help the matrix.
+// filling the rail matrix to distinguish filled 
+// spaces from blank ones   
+                                                             
+    for(i = 0; i < key; ++i)                                
+    {    
+        for(j = 0; j < length; ++j)
+        {
+            railMatrix[i][j] = '\n';
+        }
+    }
+// this places the marker '*' where the direction changes within the rails
+
+    for(i = 0; i < length; ++i)                         
+    {
+        railMatrix[row][column++] = '*';
+ 
+        if(row == 0 || row == key-1)
+        {
+            k = k * (-1);
+        }
+ 
+        row = row + k;
+    }
+//so where the '*' mark is is read and stored if there is indeed a string character.
+
+    for(i = 0; i < key; ++i)
+    {
+        for(j = 0; j < length; ++j)
+        {
+            if(railMatrix[i][j] == '*')
+            {
+                railMatrix[i][j] = demessage[m++];
+            }
+        }
+    }
+ 
+    row = column = 0;
+    k = -1;
+ 
+    printf("\nDecrypted Message: ");
+// now read the matrix in zig-zag manner to construct
+// the resultant text. and print it out
+    for(i = 0; i < length; ++i)
+    {
+        printf("%c", railMatrix[row][column++]);
+ 
+        if(row == 0 || row == key-1)
+        {
+            k = k * (-1);
+        }
+ 
+        row = row + k;
+    }
+}
+
+
